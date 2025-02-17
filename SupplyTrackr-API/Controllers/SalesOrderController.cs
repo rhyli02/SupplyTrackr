@@ -15,59 +15,59 @@ namespace SupplyTrackr_API.Controllers
             _service = service;
         }
 
-        // GET: api/product
+        // GET: api/order
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SalesOrderViewModel>>> GetAllProducts()
+        public async Task<ActionResult<IEnumerable<SalesOrderViewModel>>> GetAllOrders()
         {
-            var products = await _service.GetAllSalesOrdersAsync();
-            return Ok(products);
+            var orders = await _service.GetAllSalesOrdersAsync();
+            return Ok(orders);
         }
-        // GET: api/product/5
+        // GET: api/order/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SalesOrderViewModel>> GetByOrderId(int id)
         {
-            var product = await _service.GetSalesOrderByIdAsync(id);
-            if (product == null)
+            var orders = await _service.GetSalesOrderByIdAsync(id);
+            if (orders == null)
             {
                 return NotFound();
             }
-            return Ok(product);
+            return Ok(orders);
         }
-        // POST: api/product
+        // POST: api/order
         [HttpPost]
-        public async Task<IActionResult> AddCreateOrder([FromBody] SalesOrderViewModel salesViewModel)
+        public async Task<IActionResult> AddCreateOrder([FromBody] SalesOrderViewModel orderViewModel)
         {
-            if (await _service.CreateSalesOrderAsync(salesViewModel))
+            if (await _service.CreateSalesOrderAsync(orderViewModel))
             {
-                return Ok(new { message = "Product added successfully." });
+                return Ok(new { message = "Sales Order added successfully." });
             }
-            return BadRequest(new { message = "Failed to add product." });
+            return BadRequest(new { message = "Failed to add order." });
         }
 
-        // PUT: api/product/5
+        // PUT: api/order/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, [FromBody] SalesOrderViewModel salesViewModel)
+        public async Task<IActionResult> PutOrder(int id, [FromBody] SalesOrderViewModel orderViewModel)
         {
-            if (id != salesViewModel.OrderId)
+            if (id != orderViewModel.OrderId)
             {
                 return BadRequest("ID mismatch.");
             }
 
-            if (await _service.UpdateSalesOrderAsync(salesViewModel))
+            if (await _service.UpdateSalesOrderAsync(orderViewModel))
             {
-                return Ok(new { message = "Product updated successfully." });
+                return Ok(new { message = "Sales Order updated successfully." });
             }
-            return NotFound(new { message = "Product not found." });
+            return NotFound(new { message = "Sales Order not found." });
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteOrder(int id)
         {
             if (await _service.DeleteSalesOrderAsync(id))
             {
-                return Ok(new { message = "Product deleted successfully." });
+                return Ok(new { message = "Sales Order deleted successfully." });
             }
-            return NotFound(new { message = "Product not found." });
+            return NotFound(new { message = "Sales Order not found." });
         }
 
     }

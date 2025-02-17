@@ -16,25 +16,25 @@ namespace SupplyTrackr_API.Controllers
         {
             _service = service;
         }
-        // GET: api/product
+        // GET: api/supplier
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SupplierViewModel>>> GetAllSuppliers()
         {
             var suppliers = await _service.GetAllSuppliersAsync();
             return Ok(suppliers);
         }
-        // GET: api/product/5
+        // GET: api/supplier/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SupplierViewModel>> GetSupplier(int id)
         {
-            var product = await _service.GetSupplierByIdAsync(id);
-            if (product == null)
+            var supplier = await _service.GetSupplierByIdAsync(id);
+            if (supplier == null)
             {
                 return NotFound();
             }
-            return Ok(product);
+            return Ok(supplier);
         }
-        // POST: api/product
+        // POST: api/supplier
         [HttpPost]
         public async Task<IActionResult> AddSupplier([FromBody] SupplierViewModel supplierViewModel)
         {
@@ -42,10 +42,10 @@ namespace SupplyTrackr_API.Controllers
             {
                 return Ok(new { message = "Supplier added successfully." });
             }
-            return BadRequest(new { message = "Failed to add product." });
+            return BadRequest(new { message = "Failed to add supplier." });
         }
 
-        // PUT: api/product/5
+        // PUT: api/supplier/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSupplier(int id, [FromBody] SupplierViewModel supplierViewModel)
         {
@@ -71,7 +71,7 @@ namespace SupplyTrackr_API.Controllers
             return NotFound(new { message = "Supplier not found." });
         }
 
-        // GET: api/product/condition?status=Active
+        // GET: api/supplier/condition?status=Active
         [HttpGet("condition")]
         public async Task<ActionResult<IEnumerable<SupplierViewModel>>> GetSuppliersByCondition([FromQuery] string name)
         {
