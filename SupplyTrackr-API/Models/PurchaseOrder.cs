@@ -5,8 +5,8 @@ namespace SupplyTrackr_API.Models
     public class PurchaseOrder
     {
         [Key]
-        [Required]
-        public int Id { get; set; }
+        
+        public required int Id { get; set; }
         public required string PONumber { get; set; }          // Unique identifier for the purchase order
         public DateTime PODate { get; set; }          // The date the purchase order is created
         public required string SupplierId { get; set; }

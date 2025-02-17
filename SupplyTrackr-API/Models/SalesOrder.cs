@@ -5,7 +5,8 @@ namespace SupplyTrackr_API.Models
     public class SalesOrder
     {
         [Key]
-        public int OrderId { get; set; }
+        public required int Id { get; set; }
+        public required int OrderId { get; set; }
         public int UserId { get; set; }
         public DateTime OrderDate { get; set; }
         public string? PaymentType { get; set; }

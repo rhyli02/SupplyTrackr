@@ -5,8 +5,8 @@ namespace SupplyTrackr_API.Models
     public class OrderDetail
     {
         [Key]
-        public required int OrderDetailId { get; set; }
-       
+        public required int Id { get; set; }
+
         public required int OrderId { get; set; }
        
         public required int ProductId { get; set; }
@@ -19,7 +19,7 @@ namespace SupplyTrackr_API.Models
        
         public decimal TotalAmount { get; set; }
 
-
+        public virtual required SalesOrder SalesOrder { get; set; }
 
 
 
