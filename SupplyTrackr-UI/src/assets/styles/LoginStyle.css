@@ -1,6 +1,10 @@
 body {
     font-family: "Roboto", sans-serif;
-    background-color: #f8fafb; }
+    background-color: #fff;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; }
 
   p {
     color: #b3b3b3;
@@ -28,11 +32,12 @@ body {
   }
 
   .container {
+    height: 100vh;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    /* overflow: hidden; */
   }
 
   .row {
@@ -42,13 +47,19 @@ body {
   }
 
   .col-md-6 {
-    flex: 1;
     padding: 20px;
+    flex: 1;
+    max-height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .img-fluid {
     max-width: 100%;
-    height: auto;
+    max-height: 100%;
+    object-fit: contain;
   }
 
   @media (max-width: 768px) {
@@ -58,7 +69,7 @@ body {
 
     .col-md-6 {
       width: 100%;
-      text-align: center;
+      max-height: 50vh; /* Limits height to avoid scrolling */
     }
   }
 
@@ -78,7 +89,18 @@ body {
   }
 
   .content {
-    padding: 7rem 0; }
+    padding: 7rem 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; }
+
+  .form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
   h2 {
     font-size: 20px; }
@@ -147,7 +169,8 @@ body {
   .content .btn {
     height: 54px;
     padding-left: 30px;
-    padding-right: 30px; }
+    padding-right: 30px;
+ }
 
   .content .forgot-pass {
     position: relative;
@@ -187,13 +210,15 @@ body {
         background: #e82e1e; }
 
   .form-control {
-    width: 100%;
+    width: 90%; /* Adjust width but prevent overflowing */
+    max-width: 400px; /* Avoids stretching on larger screens */
     padding: 12px;
     font-size: 1rem;
   }
 
   .btn-primary {
-    width: 100%;
+    width: 90%;
+    max-width: 400px;
     padding: 12px;
     font-size: 1rem;
   }
@@ -232,11 +257,11 @@ body {
     background: #ccc; }
 
   .control input:checked ~ .control__indicator {
-    background: #6c63ff; }
+    background: #3127e8; }
 
   .control:hover input:not([disabled]):checked ~ .control__indicator,
   .control input:checked:focus ~ .control__indicator {
-    background: #847dff; }
+    background: #0d6efd; }
 
   .control input:disabled ~ .control__indicator {
     background: #e6e6e6;
@@ -245,7 +270,7 @@ body {
 
   .control__indicator:after {
     font-family: 'icomoon';
-    content: '\e5ca';
+    content: '\ea10';
     position: absolute;
     display: none;
     font-size: 16px;
@@ -269,5 +294,7 @@ body {
     border-color: #7b7b7b; }
 
   .control--checkbox input:disabled:checked ~ .control__indicator {
-    background-color: #7e0cf5;
+    background-color: #06defd;
     opacity: .2; }
+
+
