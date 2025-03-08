@@ -54,7 +54,7 @@ const Login = () => {
                   <p className='mb-4'>random text random text random text random text random text random text random text random text random text random text </p>
                 </div>
                 <form onSubmit={handleSubmit}>
-                  <div className={`form-group first mb-1${email ? "field--not-empty" : ""}`}>
+                  <div className={`form-group first mb-1 ${email ? "field--not-empty" : ""}`}>
                     <label htmlFor="email">Email</label>
                     <input
                       type="email"
