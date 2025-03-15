@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import InventoryTracking from "../assets/images/Inventory-Tracking.png";
 import '../assets/styles/LoginStyle.css';
 
@@ -50,8 +51,8 @@ const Login = () => {
             <div className="row justify-content-center">
               <div className="col-md-8">
                 <div className="mb-4">
-                  <h3>Sign In</h3>
-                  <p className='mb-4'>random text random text random text random text random text random text random text random text random text random text </p>
+                  <h3>Login</h3>
+                  <p className='mb-4'>Your all-in-one solution for supply tracking and inventory management. Log in to stay on top of your operations. </p>
                 </div>
                 <form onSubmit={handleSubmit}>
                   <div className={`form-group first mb-1 ${email ? "field--not-empty" : ""}`}>
@@ -91,12 +92,13 @@ const Login = () => {
                       <div className="control__indicator"></div>
                     </label>
                     <span className="ml-auto">
-                      <a href="#" className="forget-pass">Forgot Password</a>
+                      <Link to='/forgot-password' className='forgot-pass'>Forgot Password</Link>
                     </span>
                   </div>
                   <div className="text-center">
-                    <button type="submit" className="btn btn-block btn-primary ">Log In</button>
-                    <span className="d-block text-center my-2">No Account yet? <a href="">Sign Up</a></span>
+                    <button type="submit" className="btn btn-block btn-primary mb-4">Log In</button>
+                    <span className="d-block text-center">No Account yet?</span>
+                    <h3><Link to='/sign-up'>Sign Up</Link></h3>
                     <span className="d-block text-center my-4 text-muted">- or Log in with -</span>
                     <div className="social-login d-flex justify-content-center">
                       <a href="" className="google m-1">
