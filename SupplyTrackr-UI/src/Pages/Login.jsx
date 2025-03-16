@@ -98,7 +98,7 @@ const Login = () => {
                   <div className="text-center">
                     <button type="submit" className="btn btn-block btn-primary mb-4">Log In</button>
                     <span className="d-block text-center">No Account yet?</span>
-                    <h3><Link to='/sign-up'>Sign Up</Link></h3>
+                    <h3><Link to='/sign-up'>Sign up</Link></h3>
                     <span className="d-block text-center my-4 text-muted">- or Log in with -</span>
                     <div className="social-login d-flex justify-content-center">
                       <a href="" className="google m-1">
