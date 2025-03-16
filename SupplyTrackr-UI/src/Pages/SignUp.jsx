@@ -86,7 +86,7 @@ const SignUp = () => {
                       required />
                     {errors.firstName && <p className="error-text">{errors.firstName}</p>}
                   </div>
-                  <div className={`form-group first mb-1 ${formData.lastName ? "field--not-empty" : ""}`}>
+                  <div className={`form-group mid mb-1 ${formData.lastName ? "field--not-empty" : ""}`}>
                     <label htmlFor="lastName">Lastname</label>
                     <input
                       type="text"
@@ -101,7 +101,7 @@ const SignUp = () => {
                       required />
                     {errors.lastName && <p className="error-text">{errors.lastName}</p>}
                   </div>
-                  <div className={`form-group first mb-1 ${formData.email ? "field--not-empty" : ""}`}>
+                  <div className={`form-group mid mb-1 ${formData.email ? "field--not-empty" : ""}`}>
                     <label htmlFor="email">Email</label>
                     <input
                       type="email"
@@ -116,7 +116,7 @@ const SignUp = () => {
                       required />
                     {errors.email && <p className="error-text">{errors.email}</p>}
                   </div>
-                  <div className={`form-group first mb-1 ${formData.password ? "field--not-empty" : ""}`}>
+                  <div className={`form-group mid mb-1 ${formData.password ? "field--not-empty" : ""}`}>
                     <label htmlFor="password">Password</label>
                     <input
                       type="password"
@@ -131,7 +131,7 @@ const SignUp = () => {
                       required />
                     {errors.password && <p className="error-text">{errors.password}</p>}
                   </div>
-                  <div className={`form-group first mb-5 ${formData.confirmPassword ? "field--not-empty" : ""}`}>
+                  <div className={`form-group last mb-5 ${formData.confirmPassword ? "field--not-empty" : ""}`}>
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <input
                       type="password"

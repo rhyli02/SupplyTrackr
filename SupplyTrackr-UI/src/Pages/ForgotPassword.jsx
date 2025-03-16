@@ -47,7 +47,7 @@ const Login = () => {
                   <p className='mb-4'>Enter your Email address to reset your password.</p>
                 </div>
                 <form onSubmit={handleSubmit}>
-                  <div className={`form-group first mb-5 ${email ? "field--not-empty" : ""}`}>
+                  <div className={`form-group single mb-5 ${email ? "field--not-empty" : ""}`}>
                     <label htmlFor="email">Email</label>
                     <input
                       type="email"
