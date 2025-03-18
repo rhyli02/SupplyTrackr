@@ -54,9 +54,9 @@ const Login = () => {
                   <h3>Login</h3>
                   <p className='mb-4'>Your all-in-one solution for supply tracking and inventory management. Log in to stay on top of your operations. </p>
                 </div>
-                <form onSubmit={handleSubmit}>
-                  <div className={`form-group first mb-1 ${email ? "field--not-empty" : ""}`}>
-                    <label htmlFor="email">Email</label>
+                <form onSubmit={handleSubmit} className='needs-validation' noValidate>
+                  <div className={`form-group first mb-1 justify-content-between ${email ? "field--not-empty" : ""} ${errors.email ? "is-invalid border border-danger" : ""}`}>
+                    <label htmlFor="email" className='form-label'>Email</label>
                     <input
                       type="email"
                       className="form-control"
@@ -64,14 +64,16 @@ const Login = () => {
                       value={email}
                       onChange={(e) => {
                       setEmail(e.target.value);
-                      e.target.setCustomValidity(""); // Clear previous error
                       }}
-                      onInvalid={(e) => e.target.setCustomValidity(errors.email)}
                       required />
-                    {errors.email && <p className="error-text">{errors.email}</p>}
+                      {errors.email && (
+                        <span className='text-danger mt-1' data-bs-toggle='tooltip' data-bs-placement='top' title={errors.email}>
+                          <i className='bi bi-exclamation-circle'></i>
+                        </span>
+                      )}
                   </div>
-                  <div className={`form-group last mb-4 ${password ? "field--not-empty" : ""}`}>
-                    <label htmlFor="password">Password</label>
+                  <div className={`form-group last mb-4 justify-content-between ${password ? "field--not-empty" : ""} ${errors.password ? "is-invalid border border-danger" : ""}`}>
+                    <label htmlFor="password" className='form-label'>Password</label>
                     <input
                       type="password"
                       className="form-control"
@@ -79,11 +81,13 @@ const Login = () => {
                       value={password}
                       onChange={(e) => {
                       setPassword(e.target.value);
-                      e.target.setCustomValidity(""); // Clear previous error
                       }}
-                      onInvalid={(e) => e.target.setCustomValidity(errors.password)}
                       required />
-                    {errors.password && <p className="error-text">{errors.password}</p>}
+                    {errors.password && (
+                      <span className='text-danger mt-1' data-bs-toggle='tooltip' data-bs-placement='top' title={errors.password}>
+                        <i className='bi bi-exclamation-circle'></i>
+                      </span>
+                    )}
                   </div>
                   <div className="d-flex mb-5 justify-content-between">
                     <label className="control control--checkbox mb-0">

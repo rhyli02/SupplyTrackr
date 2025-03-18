@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InventoryTracking from "../assets/images/Inventory-Tracking.png";
 import '../assets/styles/LoginStyle.css';
 
@@ -12,49 +12,42 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
+  const navigate = useNavigate();
+  const [validated, setValidated] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const validate = () => {
-    let valid = true;
-    let newErrors = {};
-
-    if(!formData.firstName.trim()) {
-      newErrors.firstName = "field is required";
-      valid = false;
-    } else if (!formData.lastName.trim()) {
-      newErrors.lastName = "field is required";
-      valid = false;
-    } else if (!formData.email.trim()) {
-      newErrors.email = "email is required"
-      valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Invalid Email address";
-      valid = false;
-    } else if (!formData.password.trim()) {
-      newErrors.password = "password is required";
-      valid = false;
-    } else if (formData.password.length < 8) {
-      newErrors.password = "password must be at least 8 characters";
-      valid = false;
-    } else if (!formData.confirmPassword.trim()) {
-      newErrors.confirmPassword = "confirm password is required";
-      valid = false;
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "passwords do not match";
-      valid = false;
-    }
-
-    setErrors(newErrors);
-    return valid;
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]: e.target.value})
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(validate()) {
-      alert("Sign Up success!");
-      console.log("Form Data: ", formData);
+    let newErrors = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "Please enter your first name.";
+    }
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Please enter your last name.";
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (!formData.password.match(/(?=.*[A-Z])(?=.*\d).{8,}/)) {
+      newErrors.password = "Password must be at least 8 characters, include one uppercase letter, and a number.";
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match.";
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      alert("Registration Successful!");
+      navigate("/");
     }
   };
+
 
   return (
     <div className="content">
@@ -70,84 +63,93 @@ const SignUp = () => {
                   <h3>Register</h3>
                   <p className='mb-4'>Create a new account here.</p>
                 </div>
-                <form onSubmit={handleSubmit}>
-                  <div className={`form-group first mb-1 ${formData.firstName ? "field--not-empty" : ""}`}>
-                    <label htmlFor="firstName">Firstname</label>
+                <form className={`needs-validation ${ validated ? "was-validated" : ""}`} noValidate onSubmit={handleSubmit}>
+                  <div className={`form-group first mb-1 justify-content-between ${formData.firstName ? "field--not-empty" : ""} ${errors.firstName ? "is-invalid border border-danger" : ""}`}>
+                    <label htmlFor="firstName" className='form-label'>Firstname</label>
                     <input
-                      type="text"
-                      className="form-control"
-                      id="firstName"
+                      type='text'
+                      name='firstName'
+                      className='form-control'
+                      id='firstName'
                       value={formData.firstName}
-                      onChange={(e) => {
-                      setFormData({...formData, firstName: e.target.value});
-                      e.target.setCustomValidity(""); // Clear previous error
-                      }}
-                      onInvalid={(e) => e.target.setCustomValidity(errors.firstName)}
-                      required />
-                    {errors.firstName && <p className="error-text">{errors.firstName}</p>}
+                      onChange={handleChange}
+                      pattern='[A-Za-z/s]+'
+                      required
+                    />
+                    {errors.firstName && (
+                      <span className="text-danger mt-1" data-bs-toggle="tooltip" data-bs-placement="top" title={errors.firstName}>
+                        <i className="bi bi-exclamation-circle"></i>
+                      </span>
+                    )}
                   </div>
-                  <div className={`form-group mid mb-1 ${formData.lastName ? "field--not-empty" : ""}`}>
-                    <label htmlFor="lastName">Lastname</label>
+                  <div className={`form-group mid mb-1 justify-content-between ${formData.lastName ? "field--not-empty" : ""} ${errors.lastName ? "is-valid border border-danger" : ""}`}>
+                    <label htmlFor="lastName" className='form-label'>Lastname</label>
                     <input
-                      type="text"
-                      className="form-control"
-                      id="lastName"
+                      type='text'
+                      name='lastName'
+                      className='form-control'
+                      id='lastName'
                       value={formData.lastName}
-                      onChange={(e) => {
-                      setFormData({...formData, lastName: e.target.value})
-                      e.target.setCustomValidity(""); // Clear previous error
-                      }}
-                      onInvalid={(e) => e.target.setCustomValidity(errors.lastName)}
+                      onChange={handleChange}
+                      pattern='[A-Za-z/s]+'
                       required />
-                    {errors.lastName && <p className="error-text">{errors.lastName}</p>}
+                      {errors.lastName && (
+                      <span className="text-danger mt-1" data-bs-toggle="tooltip" data-bs-placement="top" title={errors.lastName}>
+                        <i className="bi bi-exclamation-circle"></i>
+                      </span>
+                      )}
                   </div>
-                  <div className={`form-group mid mb-1 ${formData.email ? "field--not-empty" : ""}`}>
+                  <div className={`form-group mid mb-1 justify-content-between ${formData.email ? "field--not-empty" : ""} ${errors.email ? "is-valid border border-danger" : ""}`}>
                     <label htmlFor="email">Email</label>
                     <input
-                      type="email"
-                      className="form-control"
-                      id="email"
+                      type='email'
+                      name='email'
+                      className='form-control'
+                      id='email'
                       value={formData.email}
-                      onChange={(e) => {
-                      setFormData({...formData, email: e.target.value})
-                      e.target.setCustomValidity(""); // Clear previous error
-                      }}
-                      onInvalid={(e) => e.target.setCustomValidity(errors.email)}
+                      onChange={handleChange}
                       required />
-                    {errors.email && <p className="error-text">{errors.email}</p>}
+                      {errors.email && (
+                      <span className="text-danger mt-1" data-bs-toggle="tooltip" data-bs-placement="top" title={errors.email}>
+                        <i className="bi bi-exclamation-circle"></i>
+                      </span>
+                      )}
                   </div>
-                  <div className={`form-group mid mb-1 ${formData.password ? "field--not-empty" : ""}`}>
+                  <div className={`form-group mid mb-1 justify-content-between ${formData.password ? "field--not-empty" : ""} ${errors.password ? "is-valid border border-danger" : ""}`}>
                     <label htmlFor="password">Password</label>
                     <input
-                      type="password"
-                      className="form-control"
-                      id="password"
+                      type='password'
+                      name='password'
+                      className='form-control'
+                      id='password'
                       value={formData.password}
-                      onChange={(e) => {
-                      setFormData({...formData, password: e.target.value})
-                      e.target.setCustomValidity(""); // Clear previous error
-                      }}
-                      onInvalid={(e) => e.target.setCustomValidity(errors.password)}
+                      onChange={handleChange}
+                      pattern='(?=.*[A-Z])(?=.*\d).{8,}'
                       required />
-                    {errors.password && <p className="error-text">{errors.password}</p>}
+                      {errors.password && (
+                        <span className='text-danger mt-1' data-bs-toggle='tooltip' data-bs-placement='top' title={errors.password}>
+                          <i className='bi bi-exclamation-circle'></i>
+                        </span>
+                      )}
                   </div>
-                  <div className={`form-group last mb-5 ${formData.confirmPassword ? "field--not-empty" : ""}`}>
+                  <div className={`form-group last mb-5 justify-content-between ${formData.confirmPassword ? "field--not-empty" : ""} ${errors.confirmPassword ? "is-valid border border-danger" : ""}`}>
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <input
-                      type="password"
-                      className="form-control"
-                      id="confirmPassword"
+                      type='password'
+                      name='confirmPassword'
+                      className='form-control'
+                      id='confirmPassword'
                       value={formData.confirmPassword}
-                      onChange={(e) => {
-                      setFormData({...formData, confirmPassword: e.target.value})
-                      e.target.setCustomValidity(""); // Clear previous error
-                      }}
-                      onInvalid={(e) => e.target.setCustomValidity(errors.confirmPassword)}
+                      onChange={handleChange}
                       required />
-                    {errors.confirmPassword && <p className="error-text">{errors.confirmPassword}</p>}
+                      {errors.confirmPassword && (
+                        <span className='text-danger mt-1' data-bs-toggle='tooltip' data-bs-placement='top' title={errors.confirmPassword}>
+                          <i className='bi bi-exclamation-circle'></i>
+                        </span>
+                      )}
                   </div>
                   <div className="text-center">
-                    <button type="submit" className="btn btn-block btn-primary ">Register</button>
+                    <button type="submit" className="btn btn-block btn-primary">Register</button>
                     <span className="d-block text-center my-2"><Link to='/'>Return to Login</Link></span>
                   </div>
                 </form>

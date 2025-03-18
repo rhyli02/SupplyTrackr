@@ -99,7 +99,7 @@ body {
   .form-group {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
   }
 
   h2 {
