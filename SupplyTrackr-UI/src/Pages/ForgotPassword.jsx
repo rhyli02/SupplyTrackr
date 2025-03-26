@@ -27,8 +27,6 @@ const Login = () => {
     e.preventDefault();
     if(validate()) {
       alert("An email has been set to your email address.");
-    } else {
-      document.getElementById("email").reportValidity();
     }
   };
 
@@ -46,8 +44,8 @@ const Login = () => {
                   <h3>Forgot Password</h3>
                   <p className='mb-4'>Enter your Email address to reset your password.</p>
                 </div>
-                <form onSubmit={handleSubmit}>
-                  <div className={`form-group single mb-5 ${email ? "field--not-empty" : ""}`}>
+                <form onSubmit={handleSubmit} className='needs-validation' noValidate>
+                  <div className={`form-group single mb-5 justify-content-between ${email ? "field--not-empty" : ""} ${errors.email ? "is-invalid border border-danger" : ""}`}>
                     <label htmlFor="email">Email</label>
                     <input
                       type="email"
@@ -60,7 +58,11 @@ const Login = () => {
                       }}
                       onInvalid={(e) => e.target.setCustomValidity(errors.email)}
                       required />
-                    {errors.email && <p className="error-text">{errors.email}</p>}
+                    {errors.email && (
+                      <span className='text-danger mt-1' data-bs-toggle='tooltip' data-bs-placement='top' title={errors.email}>
+                        <i className='bi bi-exclamation-circle'></i>
+                      </span>
+                    )}
                   </div>
                   <div className="text-center">
                     <button type="submit" className="btn btn-block btn-primary ">Submit</button>

@@ -4,6 +4,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Login from './Pages/Login'
 import ForgotPassword from './Pages/ForgotPassword'
 import SignUp from './Pages/SignUp'
+import Home from './Pages/HomePage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path='/' element={<Login />}/>
         <Route path='/forgot-password' element={<ForgotPassword />}/>
         <Route path='/sign-up' element={<SignUp />}/>
+        <Route path='/home' element={<Home />}/>
       </Routes>
     </Router>
   )

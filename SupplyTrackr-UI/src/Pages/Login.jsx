@@ -6,38 +6,17 @@ import '../assets/styles/LoginStyle.css';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: ""});
-
-  const validate = () => {
-    let valid = true;
-    let newErrors = { email: "", password: ""};
-
-    if(!email) {
-      newErrors.email = "Email is required";
-      valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Invalid Email address";
-      valid = false;
-    }
-    if(!password) {
-      newErrors.password = "Password required";
-      valid = false;
-    } else if (password.length < 8) {
-      newErrors.password = "Password length should be atleast 8 characters";
-      valid = false;
-    }
-    setErrors(newErrors);
-    return valid;
-  };
+  const [validated, setValidated] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(validate()) {
-      alert("Logged in Successfully!");
+    const form = e.currentTarget;
+    if(form.checkValidity() === false) {
+      e.stopPropagation();
     } else {
-      document.getElementById("email").reportValidity();
-      document.getElementById("password").reportValidity();
+      alert("Logged in Successfully!");
     }
+    setValidated(true);
   };
 
   return (
@@ -54,40 +33,39 @@ const Login = () => {
                   <h3>Login</h3>
                   <p className='mb-4'>Your all-in-one solution for supply tracking and inventory management. Log in to stay on top of your operations. </p>
                 </div>
-                <form onSubmit={handleSubmit} className='needs-validation' noValidate>
-                  <div className={`form-group first mb-1 justify-content-between ${email ? "field--not-empty" : ""} ${errors.email ? "is-invalid border border-danger" : ""}`}>
-                    <label htmlFor="email" className='form-label'>Email</label>
+                {/* ------ form ------ */}
+                <form onSubmit={handleSubmit} className={`form-floating needs-validation ${ validated ? "was-validated" : ""}`} noValidate>
+                  <div className='form-floating mb-3'>
                     <input
                       type="email"
                       className="form-control"
                       id="email"
+                      placeholder='name@example.com'
                       value={email}
                       onChange={(e) => {
                       setEmail(e.target.value);
                       }}
                       required />
-                      {errors.email && (
-                        <span className='text-danger mt-1' data-bs-toggle='tooltip' data-bs-placement='top' title={errors.email}>
-                          <i className='bi bi-exclamation-circle'></i>
-                        </span>
-                      )}
+                      <label htmlFor="email" className='form-label'>Email</label>
+                      <div className="invalid-feedback">
+                        Incorrect Email
+                      </div>
                   </div>
-                  <div className={`form-group last mb-4 justify-content-between ${password ? "field--not-empty" : ""} ${errors.password ? "is-invalid border border-danger" : ""}`}>
-                    <label htmlFor="password" className='form-label'>Password</label>
+                  <div className='form-floating mb-4'>
                     <input
                       type="password"
                       className="form-control"
                       id="password"
+                      placeholder='Password'
                       value={password}
                       onChange={(e) => {
                       setPassword(e.target.value);
                       }}
                       required />
-                    {errors.password && (
-                      <span className='text-danger mt-1' data-bs-toggle='tooltip' data-bs-placement='top' title={errors.password}>
-                        <i className='bi bi-exclamation-circle'></i>
-                      </span>
-                    )}
+                      <div className="invalid-feedback">
+                        Incorrect Password
+                      </div>
+                      <label htmlFor="password" className='form-label'>Password</label>
                   </div>
                   <div className="d-flex mb-5 justify-content-between">
                     <label className="control control--checkbox mb-0">
@@ -100,7 +78,7 @@ const Login = () => {
                     </span>
                   </div>
                   <div className="text-center">
-                    <button type="submit" className="btn btn-block btn-primary mb-4">Log In</button>
+                    <button type="submit" className="btn btn-primary mb-4">Log In</button>
                     <span className="d-block text-center">No Account yet?</span>
                     <h3><Link to='/sign-up'>Sign up</Link></h3>
                     <span className="d-block text-center my-4 text-muted">- or Log in with -</span>
@@ -116,6 +94,7 @@ const Login = () => {
                     </div>
                   </div>
                 </form>
+                {/* ------ form ------ */}
               </div>
             </div>
           </div>
