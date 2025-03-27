@@ -1,33 +1,21 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import InventoryTracking from "../assets/images/Inventory-Tracking.png";
-import '../assets/styles/LoginStyle.css';
+import '../assets/styles/style.css';
 
-const Login = () => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: ""});
-
-  const validate = () => {
-    let valid = true;
-    let newErrors = { email: ""};
-
-    if(!email) {
-      newErrors.email = "Email is required";
-      valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Invalid Email address";
-      valid = false;
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
+  const [validated, setValidated] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(validate()) {
+    const form = e.currentTarget;
+    if(form.checkValidity() === false) {
+      e.stopPropagation();
+    } else {
       alert("An email has been set to your email address.");
     }
+    setValidated(true);
   };
 
   return (
@@ -44,28 +32,25 @@ const Login = () => {
                   <h3>Forgot Password</h3>
                   <p className='mb-4'>Enter your Email address to reset your password.</p>
                 </div>
-                <form onSubmit={handleSubmit} className='needs-validation' noValidate>
-                  <div className={`form-group single mb-5 justify-content-between ${email ? "field--not-empty" : ""} ${errors.email ? "is-invalid border border-danger" : ""}`}>
-                    <label htmlFor="email">Email</label>
+                <form onSubmit={handleSubmit} className={`form-floating needs-validation ${ validated ? "was-validated" : ""}`} noValidate>
+                  <div className='form-floating mb-4'>
                     <input
                       type="email"
                       className="form-control"
                       id="email"
+                      placeholder="name@example.com"
                       value={email}
                       onChange={(e) => {
                       setEmail(e.target.value);
-                      e.target.setCustomValidity(""); // Clear previous error
                       }}
-                      onInvalid={(e) => e.target.setCustomValidity(errors.email)}
                       required />
-                    {errors.email && (
-                      <span className='text-danger mt-1' data-bs-toggle='tooltip' data-bs-placement='top' title={errors.email}>
-                        <i className='bi bi-exclamation-circle'></i>
-                      </span>
-                    )}
+                      <label htmlFor="email">Email</label>
+                      <div className="invalid-feedback">
+                        Invalid Email
+                      </div>
                   </div>
                   <div className="text-center">
-                    <button type="submit" className="btn btn-block btn-primary ">Submit</button>
+                    <button type="submit" className="btn btn-primary ">Submit</button>
                     <span className="d-block text-center my-2"><Link to='/'>Return to Login</Link></span>
                   </div>
                 </form>
@@ -78,4 +63,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default ForgotPassword

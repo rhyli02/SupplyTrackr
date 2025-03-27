@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import InventoryTracking from "../assets/images/Inventory-Tracking.png";
-import '../assets/styles/LoginStyle.css';
+import '../assets/styles/style.css';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({

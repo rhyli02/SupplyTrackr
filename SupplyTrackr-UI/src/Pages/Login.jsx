@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import InventoryTracking from "../assets/images/Inventory-Tracking.png";
-import '../assets/styles/LoginStyle.css';
+import '../assets/styles/style.css';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,11 +69,15 @@ const Login = () => {
                       <label htmlFor="password" className='form-label'>Password</label>
                   </div>
                   <div className="d-flex mb-5 justify-content-between">
-                    <label className="control control--checkbox mb-0">
-                      <span className="caption">Remember me</span>
-                      <input type="checkbox" defaultChecked />
-                      <div className="control__indicator"></div>
-                    </label>
+                    <div className="form-check form-check-inline">
+                      <input
+                        type="checkbox"
+                        id="rememberCb"
+                        className="form-check-input"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}/>
+                      <label htmlFor="rememberCb" className="form-check-label">Remember me</label>
+                    </div>
                     <span className="ml-auto">
                       <Link to='/forgot-password' className='forgot-pass'>Forgot Password</Link>
                     </span>
