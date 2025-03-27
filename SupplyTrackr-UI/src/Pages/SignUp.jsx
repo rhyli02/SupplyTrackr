@@ -83,7 +83,7 @@ const SignUp = () => {
                       Looks Good!
                       </div>
                       <div className="invalid-feedback">
-                        Enter your lastname.
+                        Enter your Lastname.
                       </div>
                   </div>
                   <div className='form-floating mid mb-1'>
