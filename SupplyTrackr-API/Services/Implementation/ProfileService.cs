@@ -1,60 +1,50 @@
 ﻿using AutoMapper;
-using SupplyTrackr_Profile.Models;
-using SupplyTrackr_Profile.Models.ViewModels;
-using SupplyTrackr_Profile.Repository.Interface;
-using SupplyTrackr_Profile.Services.Interface;
+using SupplyTrackr_API.Models;
+using SupplyTrackr_API.Models.ViewModels;
+using SupplyTrackr_API.Repository.Interface;
+using SupplyTrackr_API.Services.Interface;
 using System.Linq.Expressions;
 
-namespace SupplyTrackr_Profile.Services.Implementation //may S na ung Profile dito -> Profiles na, instead of Profile kasi dalawa ang Profile at nagkaka conflict
-{
-    public class ProfileService: IProfileService
-    {
-        private readonly IRepository<Profiles> _repository;
-        private readonly IMapper _mapper;
+public class ProfileService : IProfileService {
 
-        public ProfileService(IRepository<Profiles> repository, IMapper mapper)
-        {
-            _repository = repository;
-            _mapper = mapper;
-        }
+    private readonly IRepository<Profiles> _repository;
+    private readonly IMapper _mapper;
 
-        public async Task<bool> AddProfileAsync(ProfileViewModel profileViewModel)
-        {
-            var profile = _mapper.Map<Profiles>(profileViewModel);
-            return await _repository.AddAsync(profile);
-        }
+    public ProfileService(IRepository<Profiles> repository, IMapper mapper) {
+        _repository = repository;
+        _mapper = mapper;
+    }
 
-        public async Task<bool> DeleteProfileAsync(int id)
-        {
-            
-            return await _repository.DeleteAsync(id);
-        }
+    public async Task<bool> AddProfileAsync(ProfileViewModel profileViewModel) {
+        var profile = _mapper.Map<Profiles>(profileViewModel);
+        return await _repository.AddAsync(profile);
+    }
 
-        public async Task<IEnumerable<ProfileViewModel>> GetAllProfilesAsync()
-        {
-            var profile = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<ProfileViewModel>>(profile);
-        }
+    public async Task<bool> DeleteProfileAsync(int id) {
 
-        public async Task<ProfileViewModel?> GetProfileByIdAsync(int id)
-        {
-            var profile = await _repository.GetByIdAsync(id);
-            return profile == null ? null:_mapper.Map<ProfileViewModel>(profile);
-        }
+        return await _repository.DeleteAsync(id);
+    }
 
-        public async Task<IEnumerable<ProfileViewModel>> GetProfilesByConditionAsync(Expression<Func<Profiles, bool>> expression)
-        {
-            var profile = await _repository.GetByConditionAsync(expression);
-            return _mapper.Map < IEnumerable < ProfileViewModel >> (profile);
-        }
+    public async Task<IEnumerable<ProfileViewModel>> GetAllProfilesAsync() {
+        var profile = await _repository.GetAllAsync();
+        return _mapper.Map<IEnumerable<ProfileViewModel>>(profile);
+    }
 
-        public async Task<bool> UpdateProfileAsync(ProfileViewModel profileViewModel)
-        {
-            var profile = await _repository.GetByIdAsync(profileViewModel.Id);
-            if (profile == null) return false;
+    public async Task<ProfileViewModel?> GetProfileByIdAsync(int id) {
+        var profile = await _repository.GetByIdAsync(id);
+        return profile == null ? null : _mapper.Map<ProfileViewModel>(profile);
+    }
 
-            _mapper.Map(profileViewModel, profile);
-            return await _repository.UpdateAsync(profile);
-        }
+    public async Task<IEnumerable<ProfileViewModel>> GetProfilesByConditionAsync(Expression<Func<Profiles, bool>> expression) {
+        var profile = await _repository.GetByConditionAsync(expression);
+        return _mapper.Map<IEnumerable<ProfileViewModel>>(profile);
+    }
+
+    public async Task<bool> UpdateProfileAsync(ProfileViewModel profileViewModel) {
+        var profile = await _repository.GetByIdAsync(profileViewModel.Id);
+        if (profile == null) return false;
+
+        _mapper.Map(profileViewModel, profile);
+        return await _repository.UpdateAsync(profile);
     }
 }

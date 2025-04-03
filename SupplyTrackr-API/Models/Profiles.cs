@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SupplyTrackr_Profile.Models
+namespace SupplyTrackr_API.Models
 {
     public class Profiles
 
