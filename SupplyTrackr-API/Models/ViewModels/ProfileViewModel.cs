@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SupplyTrackr_Profile.Models.ViewModels
+﻿namespace SupplyTrackr_API.Models.ViewModels
 {
     public class ProfileViewModel
     {
-        [Key]
         public int Id { get; set; }
         public required string Username { get; set; }
         public required string PasswordHash { get; set; }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SupplyTrackr_Profile.Models.ViewModels;
-using SupplyTrackr_Profile.Services.Interface;
+using SupplyTrackr_API.Models;
+using SupplyTrackr_API.Models.ViewModels;
 
-namespace SupplyTrackr_Profile.Controllers //May s ung Profile
+namespace SupplyTrackr_API.Controllers //May s ung Profile
 {
     [Route("api/[controller]")]
     [ApiController]
