@@ -1,8 +1,13 @@
-﻿namespace SupplyTrackr_API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SupplyTrackr_API.Models
 {
-    public class User
+    public class Profiles
+
     {
-        public int UserId { get; set; }
+   
+        [Key]
+        public int Id { get; set; }
         public required string Username { get; set; }
         public required string PasswordHash { get; set; }
         public required string FirstName { get; set; }
@@ -17,3 +22,4 @@
         public DateTime LastLoginDate { get; set; }
     }
 }
+
