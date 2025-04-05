@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { api } from '../assets/js/api';
 import InventoryTracking from "../assets/images/Inventory-Tracking.png";
 import '../assets/styles/style.css';
 
@@ -8,6 +9,17 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
+
+  useEffect(() => {
+    fetch("https://localhost:7178/api/Profiles")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Profiles: ", data);
+      })
+      .catch((err) => {
+        console.log("API Error: ", err)
+      });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
