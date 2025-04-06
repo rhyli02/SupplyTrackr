@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import InventoryTracking from "../assets/images/Inventory-Tracking.png";
+import { api } from '../assets/js/api';
 import '../assets/styles/style.css';
 
 const SignUp = () => {
@@ -20,14 +21,28 @@ const SignUp = () => {
     setFormData({...formData, [e.target.name]: e.target.value})
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    if (form.checkValidity() === false){
-      e.stopPropagation();
-    } else {
-      alert("Registration Successful!");
-    }
+
+    const response = await fetch("https://localhost:7178/api/Profiles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) { alert("Registration Successful!") }
+    else { alert("Error: ${data.message}")}
+
+    // const form = e.currentTarget;
+    // if (form.checkValidity() === false){
+    //   e.stopPropagation();
+    // } else {
+    //   alert("Registration Successful!");
+    // }
     setValidated(true);
   };
 
