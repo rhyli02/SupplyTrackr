@@ -1,10 +1,13 @@
 import '../assets/styles/style.css'
-import React from 'react'
+import React, { useState, useEffect }from 'react'
 import { Link } from 'react-router-dom'
+import Preloader from '../components/Preloader'
 
 const HomePage = () => {
   return (
-    <div className="wrapper">
+    <div>
+      <Preloader/>
+      <div className="wrapper">
 
       <div className="navbar-custom">
         <div className="topbar container-fluid">
@@ -123,9 +126,10 @@ const HomePage = () => {
           </div>
         </div>
 
-      </div>
-      <div className="content-page">
-        content here!!!
+        </div>
+        <div className="content-page">
+          content here!!!
+        </div>
       </div>
     </div>
   )
