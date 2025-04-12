@@ -1,4 +1,4 @@
-const axios = required('axios')
+const axios = require('axios')
 
 const API_BASE_URL = "https://localhost:7178"
 

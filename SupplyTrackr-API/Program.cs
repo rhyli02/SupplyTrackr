@@ -29,6 +29,7 @@ builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
 builder.Services.AddScoped<ISalesOrderService, SalesOrderService>();
 builder.Services.AddScoped<ISupplierService, SupplierService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -36,17 +37,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-/*
-builder.Services.AddCors(options => {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy => {
-                          policy.WithOrigins("http://localhost:5173") // Change this to your React app's URL
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                      });
-});
-*/
 
 //CORS Policy
 

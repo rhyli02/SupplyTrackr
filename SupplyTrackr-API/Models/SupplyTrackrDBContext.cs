@@ -17,6 +17,7 @@ namespace SupplyTrackr_API.Models
         public DbSet<SalesOrder> SalesOrders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public DbSet<Profiles> Profiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
