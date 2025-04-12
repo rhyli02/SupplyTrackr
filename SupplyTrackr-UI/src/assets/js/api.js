@@ -1,4 +1,4 @@
-import axios from "axios"
+const axios = required('axios')
 
 const API_BASE_URL = "https://localhost:7178"
 
