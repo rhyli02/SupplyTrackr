@@ -11,7 +11,6 @@ namespace SupplyTrackr_API.Mapper
 
             // Mapping for Product
             CreateMap<Product, ProductViewModel>().ReverseMap();
-
             // Mapping for PurchaseOrder
             CreateMap<PurchaseOrder, PurchaseOrderViewModel>().ReverseMap();
             // Mapping for SalesOrder
@@ -21,7 +20,7 @@ namespace SupplyTrackr_API.Mapper
             //Mapping for Category
             CreateMap<Category, CategoryViewModel>().ReverseMap();
             // Mapping for Profiles
-            CreateMap<Profile, ProfileViewModel>().ReverseMap();
+            CreateMap<Profiles, ProfileViewModel>().ReverseMap();
         }
     }
 }

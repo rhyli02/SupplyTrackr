@@ -8,6 +8,15 @@ using SupplyTrackr_API.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//CORS Policy
+
+builder.Services.AddCors(options => {
+    options.AddPolicy("CorsPolicy",
+        policy => policy.WithOrigins("https://localhost:5173")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+                        //.AllowCredentials());
+});
 
 
 // Add services to the container.
@@ -36,20 +45,9 @@ builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-//CORS Policy
-
-builder.Services.AddCors(options => {
-    options.AddPolicy("CorsPolicy",
-        builder => builder
-                    .WithOrigins("https://localhost:5173")
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
-});
-
 var app = builder.Build();
+
+app.UseCors("CorsPolicy");
 
 app.MapControllerRoute(
     name: "default",
@@ -62,7 +60,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 

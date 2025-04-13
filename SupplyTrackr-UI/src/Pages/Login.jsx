@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { api } from '../assets/js/api';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../assets/js/service/auth';
 import InventoryTracking from "../assets/images/Inventory-Tracking.png";
 import '../assets/styles/style.css';
 
@@ -9,25 +9,24 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
+  const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    fetch("https://localhost:7178/api/Profiles")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Profiles: ", data);
-      })
-      .catch((err) => {
-        console.log("API Error: ", err)
-      });
-  }, []);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     if(form.checkValidity() === false) {
       e.stopPropagation();
     } else {
-      alert("Logged in Successfully!");
+      try {
+        const res = await login(email, password);
+        setMessage('Login Successful!');
+        console.log(res);
+        navigate('/home');
+      } catch (err) {
+        setMessage(err.response?.data || 'login failed.');
+      }
     }
     setValidated(true);
   };

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import InventoryTracking from "../assets/images/Inventory-Tracking.png";
-import { api } from '../assets/js/api';
 import '../assets/styles/style.css';
+import api from '../assets/js/api';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -24,25 +24,25 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("https://localhost:7178/api/Profiles", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    if (formData.password !== formData.confirmPassword) {
+      setErrors({confirmPassword: 'passwords do not match.'});
+      return
+    }
 
-    const data = await response.json();
+    try {
+      const res = await api.post("https://localhost:7178/api/Profiles", formData)
 
-    if (response.ok) { alert("Registration Successful!") }
-    else { alert("Error: ${data.message}")}
+      if (res.status === 200) {
+        alert('Registration Successful!')
+        navigate('/');
+      } else {
+        alert(`error: ${ res.data.message }`);
+      }
+    } catch (err) {
+      console.error("Error during registration: ", err);
+      alert('An error has occurd during registration, Please try again.')
+    }
 
-    // const form = e.currentTarget;
-    // if (form.checkValidity() === false){
-    //   e.stopPropagation();
-    // } else {
-    //   alert("Registration Successful!");
-    // }
     setValidated(true);
   };
 
